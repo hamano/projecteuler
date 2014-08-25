@@ -1,0 +1,10 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+p1(N) ->
+    lists:sum([ X || X <- lists:seq(1, N - 1),
+		     (X rem 3 == 0) or (X rem 5 == 0)]).
+
+main(_) ->
+    io:format("~w~n", [p1(1000)]),
+    halt().
