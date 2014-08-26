@@ -1,0 +1,17 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+factor(N) -> factor(N, 2, []).
+
+factor(1, _, Factor) -> Factor;
+factor(N, M, Factor) when N rem M == 0 ->
+    factor(N div M, M, [ M | Factor ]);
+factor(N, M, Factor) ->
+    factor(N, M+1, Factor).
+
+p3(N) ->
+    lists:max(factor(N)).
+
+main(_) ->
+    io:format("~w~n", [p3(600851475143)]),
+    halt().
