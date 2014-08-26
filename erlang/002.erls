@@ -1,0 +1,35 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+fib_slow(1) -> 1;
+fib_slow(2) -> 2;
+fib_slow(N) -> fib_slow(N-1) + fib_slow(N-2).
+
+fib_memo_init() ->
+    ets:new(memo, [set, named_table]),
+    ets:insert(memo, {1, 1}),
+    ets:insert(memo, {1, 2}).
+
+fib_memo(1) -> 1;
+fib_memo(2) -> 2;
+fib_memo(N) ->
+    case ets:lookup(memo, N) of
+	[] ->
+	    V = fib_memo(N - 1) + fib_memo(N - 2),
+	    ets:insert(memo, {N, V}),
+	    V;
+	[{_K, V}] -> V
+    end.
+% fib_binet(N) -> {math:pow(2, N)}.
+
+fib(Max) -> fib([], Max).
+fib([], Max) -> fib([2, 1], Max);
+fib([H1,H2|T], Max) when H1+H2 < Max -> fib([H1+H2,H1,H2|T], Max);
+fib(L, _Max) -> L.
+
+p2() ->
+    lists:sum([ X || X <- fib(4000000), X rem 2 == 0 ]).
+
+main(_) ->
+    io:format("~w~n", [p2()]),
+    halt().
