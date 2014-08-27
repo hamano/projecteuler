@@ -1,0 +1,16 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+isPalindrome(S) ->
+    S == lists:reverse(S).
+
+p4(N) ->
+    lists:max(
+      [ X*Y ||
+	  X <- lists:seq(1, N),
+	  Y <- lists:seq(X, N),
+	  isPalindrome(integer_to_list(X*Y))]).
+
+main(_) ->
+    io:format("~w~n", [p4(999)]),
+    halt().
