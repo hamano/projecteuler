@@ -1,0 +1,14 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+gcd(A, 0) -> A;
+gcd(A, B) -> gcd(B, A rem B).
+
+lcm(A,B) -> A * B div gcd(A,B).
+
+p5(N) ->
+    lists:foldl(fun(X, L) -> lcm(X, L) end, 1, lists:seq(1, N)).
+
+main(_) ->
+    io:format("~w~n", [p5(20)]),
+    halt().
