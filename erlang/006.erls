@@ -1,0 +1,15 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+powsum(N) ->
+    lists:sum(lists:map(fun(X) -> math:pow(X, 2) end, lists:seq(1, N))).
+
+sumpow(N) ->
+    math:pow(lists:sum(lists:seq(1, N)), 2).
+
+p6(N) ->
+    trunc(sumpow(N) - powsum(N)).
+
+main(_) ->
+    io:format("~w~n", [p6(100)]),
+    halt().
