@@ -1,0 +1,32 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+isPrime(_, []) ->
+    true;
+
+isPrime(I, [H|L]) ->
+    if H * H > I -> true;
+       I rem H == 0 -> false;
+       true -> isPrime(I, L)
+    end.
+
+genPrime(_, N, L) when length(L) >= N ->
+    L;
+
+genPrime(I, N, L) ->
+    T = isPrime(I, L),
+    if T ->
+	    genPrime(I+2, N, L ++ [I]);
+       true ->
+	    genPrime(I+2, N, L)
+    end.
+
+genPrime(N) ->
+    genPrime(7, N, [2, 3, 5]).
+
+p7(N) ->
+    lists:last(genPrime(N)).
+
+main(_) ->
+    io:format("~w~n", [p7(10001)]),
+    halt().
