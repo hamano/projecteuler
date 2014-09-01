@@ -1,0 +1,12 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+p9(N) ->
+    [ A*B*(N - A - B) ||
+	A <- lists:seq(1, N div 3),
+	B <- lists:seq(A, N div 2),
+	A*A + B*B == (N - A - B) * (N - A - B)].
+
+main(_) ->
+    io:format("~w~n", [p9(1000)]),
+    halt().
