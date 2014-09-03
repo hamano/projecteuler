@@ -1,0 +1,16 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
+sieve([H|T], Max) when H > Max ->
+    [H|T];
+
+sieve([H|T], Max) ->
+    Sieved = ordsets:subtract(T, lists:map(fun(X) -> X * H end, [H|T])),
+    [H|sieve(Sieved, Max)].
+
+p7(N) ->
+    lists:sum(sieve(lists:seq(2, N), math:sqrt(N))).
+
+main(_) ->
+    io:format("~w~n", [p7(2000000)]),
+    halt().
