@@ -23,7 +23,7 @@ long p10(int n){
     return sum;
 }
 
-int main(int argc, char *argv[]){
+int main(){
     printf("%ld\n", p10(2000000));
     return EXIT_SUCCESS;
 }
